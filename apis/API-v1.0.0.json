@@ -1,0 +1,2409 @@
+{
+	"info": {
+		"_postman_id": "1ea131d7-7404-4414-9e29-f693b910c260",
+		"name": "One-Piece",
+		"description": "## Tag\n\n- A: Means admin only\n- I: Means in-service call only\n- D: Depreacted\n\n## Response Interface\n\n```typescript\ninterface ResponseBase {\n    status: 'error' | 'success';\n}\n\ninterface CustomResponse<T> extends ResponseBase {\n    statusCode?: number;\n    message?: T;\n}\n\ninterface BuildInExceptionResponse extends ResponseBase {\n    error: string;\n}\n\ninterface CustomExceptionResponse extends ResponseBase {\n    response: {\n        status: \"error\",\n        error: string;\n    },\n    message: string;\n}\n\ntype Response<T> = CustomResponse<T> & BuildInExceptionResponse & CustomExceptionResponse;\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"pm.environment.set(\"user_id\", response.message.user.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"value": "one-piece-user",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/info",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"info"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Get a specific user information with token\n\n### **Parameter in Get Use Info:**\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n\n\n### **Request Interface:**\n\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ntype Request = AuthHeader;\n```\n\n### **Response Interface:**\n\n```typescript\ninterface IUserInfo {\n    id: string;\n    role: \"trial\" | \"user\" | \"vip1\" | \"vip2\" | \"admin\",\n    username: string;\n    licence: \"onepiece\",\n    email: string;\n    expiredDate: string;\n}\n\ninterface UserInformation {\n    user: IUserInfo;\n}\n\ntype Response<UserInformation>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Role test <A>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/test",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"test"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Get a specific user information with token\n\n### **Parameter in Get Use Info:**\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n\n\n```typescript\ninterface ResponseBase {\n  statusCode: number;\n  status: 'error' | 'success';\n  message: any;\n  [futureKey: string]: any;\n}\n\nexport type Response = ResponseBase;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Info By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/:id/info",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								":id",
+								"info"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "735ca6d1-7a2f-45b5-bce7-42706751d12e"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Get a specific user information with token\n\n### **Parameter in Get Use Info:**\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n| id(Required)           | User PK     | string       | Parameter  |\n\n### **Request Interface:**\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface UserIdDto {\n    id: string;\n}\n\ntype Request = UserIdDto & AuthHeader;\n```\n\n#### **Response Interface:**\n\n```typescript\ntype Response<User>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Login With Google",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"value": "one-piece-user",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/info",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"info"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Login with Google Oauth2.0\n\n### **Request Interface:**\n\n```typescript\n```\n\n### **Response Interface:**\n\n```typescript\ninterface GoogleCallbackInfo {\n    email: string;\n    username: string;\n    picture: string;\n    accessToken: string;\n    id: string;\n}\n\ninterface UserInformation {\n    user: GoogleCallbackInfo;\n}\n\ntype Response<UserInformation>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Login With Facebook <A>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"value": "one-piece-user",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/info",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"info"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Login with Facebook Oauth2.0\n\n### **Request Interface:**\n\n```typescript\n```\n\n### **Response Interface:**\n\n```typescript\ninterface FacebookCallbackInfo {\n    email: string;\n    username: string;\n    picture: string;\n    accessToken: string;\n    id: string;\n}\n\ninterface UserInformation {\n    user: FacebookCallbackInfo;\n}\n\ntype Response<UserInformation>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "User Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/logout",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"logout"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Logout a specific user with token\n\n### **Parameter in logout Use Info:**\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n\n\n### **Request Interface:**\n\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ntype Request = AuthHeader;\n```\n\n### **Response Interface:**\n\n```typescript\ntype Response<string>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Soft Del User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/:id",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								":id"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "58c617e8-9ff7-467d-b311-90a32baa9722"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Soft delete a specific user information with token\n\n### **Parameter in Soft Delete User:**\n| Parameter              | Description               | Type         | In         |\n| --------               | --------                  | --------     | --------   |\n| id(Required)           | Primary Key of the user   | string       | Param      |\n| authorization(Required)| JWT Token                 | string       | Header      |\n\n\n### **Request Interface:**\n\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface DeleteById {\n    id: string;\n}\n\ntype Request = DeleteById & AuthHeader;\n```\n\n### **Response Interface:**\n\n```typescript\nexport type Response<unknown>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Forget password Step1",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"dreak603@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/forgets/generates",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"forgets",
+								"generates"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Step 1 of the forget passowrd process, when user forget their password they can hit this endpoint with email to get a verify email\n\n### **Parameter in lforget password step 1:**\n\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| email(Required)        | user email  | string       | body       |\n\n\n### **Request interface:**\n\n```typescript\ninterface FPStep1 {\n    email: string;\n}\n\ntype Request = FPStep1;\n```\n\n### **Response interface:**\n\n```typescript\ntype Response<string>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Forget password step2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"XiGEFy\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/forgets/verifies",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"forgets",
+								"verifies"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Step 2 of the forget passowrd process, user has to provide the verify key in the UI of the app.\n\n### **Parameter in forget password step 2:**\n\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| key(Required)          | verify key  | string       | body       |\n\n\n### **Request interface:**\n\n```typescript\ninterface FPStep2 {\n    key: string;\n}\n\ntype Request = FPStep2;\n```\n\n### **Response interface:**\n\n```typescript\ntype Response<string>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Forget Password Step 3",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"XiGEFy\",\n    \"password\": \"Labc1234\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/forgets/confirms",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"forgets",
+								"confirms"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Step 3 of the forget passowrd process, user has to provide the verify key and new password in the UI of the app.\n\n### **Parameter in forget password step 3:**\n\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| key(Required)          | verify key  | string       | body       |\n| password(Required)     | user password  | string       | body       |\n\n### **Request interface:**\n\n```typescript\ninterface FPStep3 {\n    key: string;\n    passowrd: string;\n}\n\ntype Request = FPStep3;\n```\n\n### **Response interface:**\n\n```typescript\nexport type Response<string>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users Paging",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxpYjEiLCJpYXQiOjE2MDg3MDc0MzYsImV4cCI6MTYwODcxMTAzNn0.zhguehB2Hf7yC3R-DUbcEII25VcC5RIPwbxLyPV0u6c",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/paging",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"paging"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Get user information with pagination.\n\n### **Parameter in Get user information with pagination:**\n| Parameter              | Description                                                                                | Type         | In         |\n| --------               | --------                                                                                   | --------     | --------   |\n| authorization(Required)| JWT Token                                                                                  | string       | Header     |\n| takes(Optional)        | Offset (paginated) - where from entities should be taken.                                  | number       | Query      |\n| skip(Optional)         | Limit (paginated) - max number of entities should be taken.                                | number       | Query      |\n| keyword(Optional)      | Keyword searching specifc with username only                                               | string       | Query      |\n| sort(Optional)         | sort                                                                                       | 'ASC' or 'DESC' | Query      |\n\n\n#### Request\n```typescript\ninterface IPage {\n  take?: number;\n  skip?: number;\n}\n\ninterface ISearch extends IPage {\n  keyword?: string;\n  sort?: TSort;\n  [futureKey: string]: any;\n}\ntype Request = ISearch;\n```\n\n#### Response\n\n```typescript\ninterface ResponseMessage {\n    user: User[];\n    take: number;\n    skip: number;\n    count: number;\n}\n\ntype Response<ResponseMessage>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Signup User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"libtest\",\n    \"email\": \"lib@gmail.com\",\n    \"password\": \"Aabc1234\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/signup",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"signup"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Signup a user.\n\n### **Parameter in Signup user:**\n\n| Parameter              | Description           | Type         | In         |\n| --------               | --------              | --------     | --------   |\n| username(Required)     | name of the user      | string       | body       |\n| email(Required)        | email of the user     | string       | body       |\n| password(Required)     | password of the user  | string       | body       |\n\n\n### **Request interface:**\n\n```typescript\ninterface SignUpDto {\n    username: string;\n    email: string;\n    password: string;\n}\n\ntype Request = SignUpDto;\n```\n\n### **Response interface:**\n\n```typescript\ntype Response<string>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Signin User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"pm.environment.set(\"token\", response.message);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"lib@gmail.com\",\n    \"password\": \"Aabc1234\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/signin",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"signin"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Signin a user.\n\n### **Parameter in Signin user:**\n\n| Parameter              | Description           | Type         | In         |\n| --------               | --------              | --------     | --------   |\n| email(Required)        | email of the user     | string       | body       |\n| password(Required)     | password of the user  | string       | body       |\n\n### **Request interface:**\n\n```typescript\ninterface SignInDto {\n    email: string;\n    password: string;\n}\n\ntype Request = SignInDto;\n```\n\n### **Response interface:**\n\n```typescript\ntype Response<string>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"Cabc1234\",\n    \"newPassword\": \"Dabc1234\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/:id/password",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								":id",
+								"password"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{user_id}}"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Update a specific user password with token\n\n### **Parameter in Update a specific user password with token:**\n\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n| oldPassword(Required) .| old password| string       | body       |\n| newPassword(Required) .| new password| string       | body       |\n\n\n### **Request Interface:**\n\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface UpdatePassword {\n    oldPassword: string;\n    newPassword: string;\n}\n\nexport type Request = UpdatePassword & AuthHeader;\n```\n\n\n### **Response Interface:**\n\n```typescript\ntype Response<string>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Subscription Plan (D)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"vip2\",\n    \"subRange\": 5\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/:id/subscribes",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								":id",
+								"subscribes"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "c56df50b-2a37-4b7a-aab7-3443843c4a70"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Update a specific user password with token\n\n### **Parameter in Update a specific user password with token:**\n\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n| oldPassword(Required) .| old password| string       | body       |\n| newPassword(Required) .| new password| string       | body       |\n\n\n```typescript\ninterface ResponseBase {\n  statusCode: number;\n  status: 'error' | 'success';\n  message: any;\n  [futureKey: string]: any;\n}\n\nexport type Response = ResponseBase;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile Additional",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-user"
+							},
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/Users/liyuncheng/Desktop/temp_image/image2.jpg",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/users/:id/informations/additionals",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								":id",
+								"informations",
+								"additionals"
+							],
+							"query": [
+								{
+									"key": "service-name",
+									"value": "one-piece-user",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{user_id}}"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Update a specific user additional Information\n\n### **Parameter**\n\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n| oldPassword(Required) .| old password| string       | body       |\n| newPassword(Required) .| new password| string       | body       |\n\n\n#### Request\n```typescript\nenum EUserGender {\n    'MALE' = 'male',\n    'FEMALE' = 'female',\n}\n\ninterface BufferedFile {\n    fieldname: string;\n    originalname: string;\n    encoding: string;\n    mimetype: AppMimeType;\n    size: number;\n    buffer: Buffer | string;\n}\n\ninterface UpdateUserAdditionalInfoDto {\n    gender?: EUserGender;\n    age?: number;\n    desc?: number;\n}\n\ninterface UpdateUserAdditionalInfoInServerDto extends UpdateUserAdditionalInfoDto {\n  files?: BufferedFile[];\n}\n\ntype Request = UpdateUserAdditionalInfoInServerDto;\n```\n\n#### Response\n\n```typescript\ntype Response<User>;\n```"
+					},
+					"response": []
+				}
+			],
+			"description": "## Base Interface\n\n```typescript\ninterface Base {\n    createdAt: Date;\n    updatedAt: Date;\n}\n```\n\n## Enumerate\n\n```typescript\nenum ETripView {\n    'PUBLIC' = 'public',\n    'FRIEND' = 'friend',\n    'SELF' = 'self',\n}\n\nenum EUserRole {\n    'TRIAL' = 'trial',\n    'USER' = 'user',\n    'VIP1' = 'vip1',\n    'VIP2' = 'vip2',\n    'ADMIN' = 'admin',\n}\n\nenum EUserGender {\n    'MALE' = 'male',\n    'FEMALE' = 'female',\n}\n```\n\n## User Interface\n\n```typescript\ninterface User extends Base {\n    id: string;\n    role: EUserRole;\n    expiredDate: Date;\n    diamondCoin: number; // default 0\n    goldCoin: number; // default 10\n    username: string;\n    email: string;\n    status: boolean; // default true\n    gender?: EUserGender\n    age?: number;\n    desc?: string;\n    profileImage?: string;\n    trips: Trip[];\n    views: Trip[];\n    posts: Post[];\n    likePosts: Post[];\n    followers: User[];\n    followings: User[];\n    blockLists: User[];\n    followerCount: number;\n    followingCount: number;\n    version: number;\n}\n```\n\n## Trip Interface\n\n```typescript\ninterface Trip extends Base {\n    id: string;\n    startDate: Date;\n    endDate: Date;\n    publicStatus: ETripView;\n    companyName?: string;\n    shipNumber?: string;\n    publisher: User;\n    viewers: User[];\n    version: number;\n}\n```\n\n## Post Interface \n\n```typescript\ninterface Post extends Base {\n    id: string;\n    content: string;\n    images: string;\n    publicStatus: ETripView;\n    publisher: User;\n    likeUsers: User[];\n    trip: Trip;\n    version: number;\n}\n```",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "Get Location By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"value": "one-piece-location",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/locations/:id",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"locations",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5f866e41-2ba1-47dc-899f-2e9f044d18e9"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Get a specific location information by Id\n\n### **Parameter in Get Location Info:**\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n| id(Required)           | location PK | string       | Parameter  |\n\n\n#### Request\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface GetLocationById {\n  id: string;\n}\n\ntype Request = GetLocationById & AuthHeader;\n```\n\n#### Response\n```typescript\ntype Response<Location>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Health Check <I>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-location"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/healths",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"healths"
+							]
+						},
+						"description": "## **Description:**\n\n- Health Check Pinging\n\n\n#### **Request interface:**\n```typescript\n```\n\n#### **Response interface:**\n```typescript\ntype HealthIndicatorStatus = 'up' | 'down';\ntype HealthCheckStatus = 'error' | 'ok' | 'shutting_down';\ntype HealthIndicatorResult = {\n    /**\n     * The key of the health indicator which should be uniqe\n     */\n    [key: string]: {\n        /**\n         * The status if the given health indicator was successful or not\n         */\n        status: HealthIndicatorStatus;\n        /**\n         * Optional settings of the health indicator result\n         */\n        [optionalKeys: string]: any;\n    };\n};\n\ninterface HealthCheckResult {\n    /**\n     * The overall status of the Health Check\n     */\n    status: HealthCheckStatus;\n    /**\n     * The info object contains information of each health indicator\n     * which is of status \"up\"\n     */\n    info?: HealthIndicatorResult;\n    /**\n     * The error object contains information of each health indicator\n     * which is of status \"down\"\n     */\n    error?: HealthIndicatorResult;\n    /**\n     * The details object contains information of every health indicator.\n     */\n    details: HealthIndicatorResult;\n}\n\ntype Response<HealthCheckResult>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Locations with Name and Paging",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-location"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/locations?locationName=MOMBETSUsdfsdf&take=100",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"locations"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "locationName",
+									"value": "MOMBETSUsdfsdf"
+								},
+								{
+									"key": "countryCode",
+									"value": "TW",
+									"disabled": true
+								},
+								{
+									"key": "take",
+									"value": "100"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Search location information with Paging\n\n### **Parameter in Locations Paging Info:**\n| Parameter              | Description            | Type            | In         |\n| --------               | --------               | --------        | --------   |\n| authorization(Required)| JWT Token              | string          | Header     |\n| take(Optional)         | Page size in a scroll  | number          | Query      |\n| skip(Optional)         | Page number            | number          | Query      |\n| locationName(Optional) | Port name              | string          | Query      |\n| countryName(Optional)  | Port country name      | string          | Query      |\n| sort(Optional)         | sort                   | 'ASC' or 'DESC' | Query      |\n\n#### **Request interface:**\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface IPage {\n  take?: number;\n  skip?: number;\n}\n\ninterface ISearch extends IPage {\n  keyword?: string;\n  sort?: TSort;\n  locationName?: string;\n  countryName?: string;\n  [futureKey: string]: any;\n}\n\ntype Request = ISearch & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ninterface PagingResponse {\n    locations: Location[];\n    take: number;\n    skip: number;\n    count: number;\n}\ntype Response<PagingResponse>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Locations with Coords",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-location"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/locations/coordinates?lat=44.35&lon=143.35&method=range&range=2.2",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"locations",
+								"coordinates"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": "44.35"
+								},
+								{
+									"key": "lon",
+									"value": "143.35"
+								},
+								{
+									"key": "method",
+									"value": "range"
+								},
+								{
+									"key": "range",
+									"value": "2.2"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Search location information with Paging and support with lat and lon search\n\n### **Parameter in Locations Paging Info:**\n| Parameter              | Description            | Type                    | In         |\n| --------               | --------               | --------                | --------   |\n| authorization(Required)| JWT Token              | string                  | Header     |\n| take(Optional)         | Page size in a scroll  | number                  | Query      |\n| skip(Optional)         | Page number            | number                  | Query      |\n| lat(Required)          | Port latitude          | number                  | Query      |\n| lon(Required)          | Port country name      | number                  | Query      |\n| method(Required)       | search method          | 'specific' or 'range'   | Query      |\n| range(Optional)        | given range for search only when search method is range          | number   | Query      |\n\n#### **Request interface:**\n```typescript\nenum ELocationCoordQueryMethod {\n  'SPECIFIC' = 'specific',\n  'RANGE' = 'range',\n}\n\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface IPage {\n  take?: number;\n  skip?: number;\n}\n\ninterface ISearch extends IPage {\n  lat: number;\n  lon: number;\n  method: ELocationCoordQueryMethod;\n  range?: number;\n}\n\ntype Request = ISearch & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ninterface PagingResponse {\n    locations: Location[];\n    take: number;\n    skip: number;\n    count: number;\n}\n\ntype Response<PagingResponse>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Route Planning <A>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-location"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/turns/plans?startNode=3555&endNode=26349&type=text",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"turns",
+								"plans"
+							],
+							"query": [
+								{
+									"key": "startNode",
+									"value": "3555",
+									"description": "fromNode"
+								},
+								{
+									"key": "endNode",
+									"value": "26349",
+									"description": "toNode"
+								},
+								{
+									"key": "type",
+									"value": "text"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Route Nearest LineString <A>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-location"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/turns/nodes?startLocationName=ST. MARY'S (SCILLY ISL.)&endLocationName=MILLHAVEN",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"turns",
+								"nodes"
+							],
+							"query": [
+								{
+									"key": "startLocationName",
+									"value": "ST. MARY'S (SCILLY ISL.)"
+								},
+								{
+									"key": "endLocationName",
+									"value": "MILLHAVEN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Route Generate <I>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-location"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/turns/plans/generates?startLocationName=ST. MARY'S (SCILLY ISL.)&endLocationName=MILLHAVEN&type=text",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"turns",
+								"plans",
+								"generates"
+							],
+							"query": [
+								{
+									"key": "startLocationName",
+									"value": "ST. MARY'S (SCILLY ISL.)"
+								},
+								{
+									"key": "endLocationName",
+									"value": "MILLHAVEN"
+								},
+								{
+									"key": "type",
+									"value": "text"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## Base Interface\n\n```typescript\ninterface Base {\n    createdAt: Date;\n    updatedAt: Date;\n}\n```\n\n## Enumerate\n\n```typescript\nenum ELocationType {\n    'COUNTRY' = 'country',\n    'CITY' = 'city',\n    'SCENE' = 'scene',\n    'PORT' = 'port',\n    'TURN' = 'turn',\n}\n\nenum EUserRole {\n    'TRIAL' = 'trial',\n    'USER' = 'user',\n    'VIP1' = 'vip1',\n    'VIP2' = 'vip2',\n    'ADMIN' = 'admin',\n}\n\nenum EUserGender {\n    'MALE' = 'male',\n    'FEMALE' = 'female',\n}\n```\n\n## Geo Interface\n\n```typescript\ntype Position = number[];\ntype GeoJsonTypes = | \n    \"Point\" | \n    \"MultiPoint\" | \n    \"LineString\" |\n    \"MultiLineString\" | \n    \"Polygon\" | \n    \"MultiPolygon\" |\n    \"GeometryCollection\";\ntype BBox = [number, number, number, number] | [number, number, number, number, number, number];\n\nexport type GeometryObject = Geometry;\n\ninterface GeoJsonObject {\n    type: GeoJsonTypes;\n    bbox?: BBox;\n}\n\ninterface MultiLineString extends GeoJsonObject {\n    type: \"MultiLineString\";\n    coordinates: Position[][];\n}\n\ninterface LineString extends GeoJsonObject {\n    type: \"LineString\";\n    coordinates: Position[];\n}\n\ninterface Point extends GeoJsonObject {\n    type: \"Point\";\n    coordinates: Position;\n}\n```\n\n## Location Interface\n\n```typescript\ninterface Location extends Base {\n    id: string;\n    point: Point;\n    pointSrid: Point;\n    lat: number;\n    lon: number;\n    type: ELocationType;\n    locationName: string;\n    country?: Country;\n    startTrips?: Trip[];\n    endTrips?: Trip[];\n    version: number;\n}\n```\n\n## Country Interface\n\n```typescript\ninterface Country extends Base {\n    id: string;\n    name: string;\n    code: string;\n}\n```\n\n## Turn Interface\n\n```typescript\ninterface Turn extends Base {\n    id: string;\n    name: string;\n    geom: LineString;\n    srid: LineString;\n    length?: number;\n    fromnode?: number;\n    tonode?: number;\n    version: number;\n}\n```\n\n## User Interface\n\n```typescript\ninterface User extends Base {\n    id: string;\n    role: EUserRole;\n    expiredDate: Date;\n    diamondCoin: number; // default 0\n    goldCoin: number; // default 10\n    username: string;\n    email: string;\n    status: boolean; // default true\n    gender?: EUserGender\n    age?: number;\n    desc?: string;\n    profileImage?: string;\n    version: number;\n}\n```",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "trips",
+			"item": [
+				{
+					"name": "Get Trip Test <A>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"value": "one-piece-trip",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/trips/usertest",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"trips",
+								"usertest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Trip",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "service-name",
+								"value": "one-piece-trip",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startDate\": \"2021-02-14T06:07:41.624Z\",\n    \"endDate\": \"2021-03-28T16:00:00.000Z\",\n    \"publisherId\": \"72af76ec-bdb8-42cf-914e-003af1ce7d09\",\n    \"startPointName\": \"ST. MARY'S (SCILLY ISL.)\",\n    \"endPointName\": \"MILLHAVEN\",\n    \"publicStatus\": \"public\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/trips",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"trips"
+							]
+						},
+						"description": "## **Description:**\n\n- Create a new trip\n\n### **Parameter in Create Trip Info:**\n| Parameter               | Description                                  | Type            | In         |\n| --------                | --------                                     | --------        | --------   |\n| authorization(Required) | JWT Token                                    | string          | Header     |\n| startDate(Required)     | When the trip start with ISO Format          | string          | Body       |\n| endDate(Required)       | When the trip end with ISO Format            | string          | Body       |\n| publisherId(Required)   | Who publish this trip                        | string          | Body       |\n| startPointName(Required)| Which port starts                            | string          | Body       |\n| endPointName(Required)  | Which port ends                              | string          | Body       |\n| publicStatus(Required)  | Status of the trip default with public       | 'public' or 'friend' or 'self'          | Body       |\n| companyName(Optional)   | Which company do they belongs to             | string          | Body       |\n| shipNumber(Optional)    | What is the their ship number                | string          | Body       |\n\n\n\n#### **Request interface:**\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface CreateTripDto {\n    startDate: string;\n    endDate: string;\n    publisherId: string;\n    startPointName: string;\n    endPointName: string;\n    publicStatus: ETripView;\n    companyName?: string;\n    shipNumber?: string;\n}\n\ntype Request = CreateTripDto & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ntype Response<Trip>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trip By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-trip"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/trips/:id/publishers/:publisherId",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"trips",
+								":id",
+								"publishers",
+								":publisherId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "45311399-d318-4858-a960-2c9f549dc677"
+								},
+								{
+									"key": "publisherId",
+									"value": "735ca6d1-7a2f-45b5-bce7-42706751d12e"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Get a specific trip information by Id\n\n### **Parameter in Get Trip Info:**\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n| id(Required)           | trip PK     | string       | Parameter  |\n| publisherId(Required)  | user PK     | string       | Parameter  |\n\n\n#### Request\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface TripBasicDto {\n    id: string;\n}\n\ninterface GetTripByIdDto extends TripBasicDto {\n    publisherId: string;\n}\n\ntype Request = GetTripByIdDto & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ntype Response<Trip>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trip By Paging",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-trip"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/trips/paging?publisherId=735ca6d1-7a2f-45b5-bce7-42706751d12e",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"trips",
+								"paging"
+							],
+							"query": [
+								{
+									"key": "publisherId",
+									"value": "735ca6d1-7a2f-45b5-bce7-42706751d12e"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Get a specific trip information by Paging\n\n### **Parameter in Trips Paging Info:**\n| Parameter              | Description                                  | Type            | In         |\n| --------               | --------                                     | --------        | --------   |\n| authorization(Required)| JWT Token                                    | string          | Header     |\n| take(Optional)         | Page size in a scroll                        | number          | Query      |\n| skip(Optional)         | Page number for scroll                       | number          | Query      |\n| publisherId(Optional)  | User PK                                      | number          | Query      |\n| keyword(Optional)      | Keyword Search (This MVP doesn't support)    | string          | Query      |\n| sort(Optional)         | sort                                         | 'ASC' or 'DESC' | Query      |\n\n#### **Request interface:**\n\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface IPage {\n  take?: number;\n  skip?: number;\n}\n\ninterface ISearch extends IPage {\n  keyword?: string;\n  sort?: TSort;\n  [futureKey: string]: any;\n}\n\ninterface GetTripByPagingDto extends ISearch {\n    publisherId: string;\n}\n\ntype Request = GetTripByPagingDto & AuthHeader;\n```\n\n#### **Response interface:**\n\n```typescript\ninterface PagingResponse {\n    trips: Trip[],\n    take: number;\n    skip: number;\n    count: number;\n}\n\ntype Response<PagingResponse>;\n```"
+					},
+					"response": []
+				}
+			],
+			"description": "## Base Interface\n\n```typescript\ninterface Base {\n    createdAt: Date;\n    updatedAt: Date;\n}\n```\n\n## Enumerate\n\n```typescript\nenum ETripView {\n    'PUBLIC' = 'public',\n    'FRIEND' = 'friend',\n    'SELF' = 'self',\n}\n\nenum ELocationType {\n    'COUNTRY' = 'country',\n    'CITY' = 'city',\n    'SCENE' = 'scene',\n    'PORT' = 'port',\n    'TURN' = 'turn',\n}\n\nenum EUserRole {\n    'TRIAL' = 'trial',\n    'USER' = 'user',\n    'VIP1' = 'vip1',\n    'VIP2' = 'vip2',\n    'ADMIN' = 'admin',\n}\n\nenum EUserGender {\n    'MALE' = 'male',\n    'FEMALE' = 'female',\n}\n```\n\n## Post Interface \n\n```typescript\ninterface Post extends Base {\n    id: string;\n    content: string;\n    images: string;\n    publicStatus: ETripView;\n    publisher: User;\n    likeUsers: User[];\n    trip: Trip;\n    version: number;\n}\n```\n\n## Geo Interface\n\n```typescript\ntype Position = number[];\ntype GeoJsonTypes = | \n    \"Point\" | \n    \"MultiPoint\" | \n    \"LineString\" |\n    \"MultiLineString\" | \n    \"Polygon\" | \n    \"MultiPolygon\" |\n    \"GeometryCollection\";\ntype BBox = [number, number, number, number] | [number, number, number, number, number, number];\n\nexport type GeometryObject = Geometry;\n\ninterface GeoJsonObject {\n    type: GeoJsonTypes;\n    bbox?: BBox;\n}\n\ninterface MultiLineString extends GeoJsonObject {\n    type: \"MultiLineString\";\n    coordinates: Position[][];\n}\n\ninterface Point extends GeoJsonObject {\n    type: \"Point\";\n    coordinates: Position;\n}\n```\n\n## Trip Interface\n\n```typescript\ninterface Trip extends Base {\n    id: string;\n    startDate: Date;\n    endDate: Date;\n    publicStatus: ETripView;\n    companyName?: string;\n    shipNumber?: string;\n    geom?: MultiLineString;\n    publisher: User;\n    viewers: User[];\n    startPoint: Location;\n    endPoint: Location;\n    version: number;\n}\n```\n\n## Location Interface\n\n```typescript\ninterface Location extends Base {\n    id: string;\n    point: Point;\n    pointSrid: Point;\n    lat: number;\n    lon: number;\n    type: ELocationType;\n    locationName: string;\n    country?: Country;\n    startTrips?: Trip[];\n    endTrips?: Trip[];\n    version: number;\n}\n```\n\n## Country Interface\n\n```typescript\ninterface Country extends Base {\n    id: string;\n    name: string;\n    code: string;\n}\n```\n\n## User Interface\n\n```typescript\ninterface User extends Base {\n    id: string;\n    role: EUserRole;\n    expiredDate: Date;\n    diamondCoin: number; // default 0\n    goldCoin: number; // default 10\n    username: string;\n    email: string;\n    status: boolean; // default true\n    gender?: EUserGender\n    age?: number;\n    desc?: string;\n    profileImage?: string;\n    trips: Trip[];\n    views: Trip[];\n    posts: Post[];\n    likePosts: Post[];\n    followers: User[];\n    followings: User[];\n    blockLists: User[];\n    followerCount: number;\n    followingCount: number;\n    version: number;\n}\n```",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Get Post Test <A>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-trip"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/posts/usertest",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"posts",
+								"usertest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-trip"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/posts/:postId",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"posts",
+								":postId"
+							],
+							"variable": [
+								{
+									"key": "postId",
+									"value": "e76565bd-99f7-42d8-98c5-0dd173ef8e08"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Get a specific post information by Id\n\n### **Parameter in Get Post Info:**\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n| id(Required)           | post PK     | string       | Parameter  |\n\n\n#### **Request interface:**\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface PostBasicDto {\n    id: string;\n}\n\ntype Request = PostBasicDto & AuthHeader;\n```\n\n#### Response\n```typescript\ntype Response<Post>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-trip"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/Users/liyuncheng/Desktop/temp_image/mobile01-6f9ddf09343e66335398dbbecea0db77.jpg",
+										"/Users/liyuncheng/Desktop/temp_image/mobile01-6f12648ce644911f4032a83d2c87ce7b.jpg"
+									]
+								},
+								{
+									"key": "content",
+									"value": "lib test",
+									"type": "text"
+								},
+								{
+									"key": "publicStatus",
+									"value": "public",
+									"type": "text"
+								},
+								{
+									"key": "tripId",
+									"value": "45311399-d318-4858-a960-2c9f549dc677",
+									"type": "text"
+								},
+								{
+									"key": "publisherId",
+									"value": "735ca6d1-7a2f-45b5-bce7-42706751d12e",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/posts",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"posts"
+							]
+						},
+						"description": "## **Description:**\n\n- Create a new post\n\n### **Parameter in Create Post Info:**\n| Parameter               | Description                                  | Type                           | In         |\n| --------                | --------                                     | --------                       | --------   |\n| authorization(Required) | JWT Token                                    | string                         | Header     |\n| content(Required)       | Post content                                 | string                         | Body       |\n| publicStatus(Required)  | Status of the trip default with public       | 'public' or 'friend' or 'self' | Body       |\n| tripId(Required)        | Related to which trip                        | string                         | Body       |\n| publisherId(Required)   | Who publish this trip                        | string                         | Body       |\n| files(Optional)         | Post Images                                  | ITrip.BufferedFile[]           | Body       |\n\n\n#### **Request interface:**\n```typescript\nenum ETripView {\n    'PUBLIC' = 'public',\n    'FRIEND' = 'friend',\n    'SELF' = 'self',\n}\n\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface BufferedFile {\n    fieldname: string;\n    originalname: string;\n    encoding: string;\n    mimetype: AppMimeType;\n    size: number;\n    buffer: Buffer | string;\n}\n\ninterface CreatePostDto {\n    content: string;\n    publicStatus: ETripView;\n    tripId: string;\n    publisherId: string;\n    files: ITrip.BufferedFile[];\n}\n\ntype Request = CreatePostDto & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ntype Response<Post>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post Paging",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-trip"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxpYjEiLCJpYXQiOjE2MDg3MDc0MzYsImV4cCI6MTYwODcxMTAzNn0.zhguehB2Hf7yC3R-DUbcEII25VcC5RIPwbxLyPV0u6c",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/posts",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "ASC",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Search post information with paging\n\n### **Parameter in Posts Paging Info:**\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n| take(Optional)         | Page size in a scroll                        | number          | Query      |\n| skip(Optional)         | Page number for scroll                       | number          | Query      |\n| keyword(Optional)      | Keyword Search (This MVP doesn't support)    | string          | Query      |\n| sort(Optional)         | sort                                         | 'ASC' or 'DESC' | Query      |\n\n\n#### **Request interface:**\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface IPage {\n    take?: number;\n    skip?: number;\n}\n\ninterface ISearch extends IPage {\n    keyword?: string;\n    sort?: TSort;\n    [futureKey: string]: any;\n}\n\ntype Request = ISearch & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ninterface PagingResponse {\n    posts: Post[];\n    take: number;\n    skip: number;\n    count: number;\n}\n\ntype Response<PagingResponse>;\n```"
+					},
+					"response": []
+				}
+			],
+			"description": "## Base Interface\n\n```typescript\ninterface Base {\n    createdAt: Date;\n    updatedAt: Date;\n}\n```\n\n## Enumerate\n\n```typescript\nenum ETripView {\n    'PUBLIC' = 'public',\n    'FRIEND' = 'friend',\n    'SELF' = 'self',\n}\n\nenum ELocationType {\n    'COUNTRY' = 'country',\n    'CITY' = 'city',\n    'SCENE' = 'scene',\n    'PORT' = 'port',\n    'TURN' = 'turn',\n}\n\nenum EUserRole {\n    'TRIAL' = 'trial',\n    'USER' = 'user',\n    'VIP1' = 'vip1',\n    'VIP2' = 'vip2',\n    'ADMIN' = 'admin',\n}\n\nenum EUserGender {\n    'MALE' = 'male',\n    'FEMALE' = 'female',\n}\n```\n\n## Post Interface \n\n```typescript\ninterface Post extends Base {\n    id: string;\n    content: string;\n    images: string;\n    publicStatus: ETripView;\n    publisher: User;\n    likeUsers: User[];\n    trip: Trip;\n    version: number;\n}\n```\n\n## Geo Interface\n\n```typescript\ntype Position = number[];\ntype GeoJsonTypes = | \n    \"Point\" | \n    \"MultiPoint\" | \n    \"LineString\" |\n    \"MultiLineString\" | \n    \"Polygon\" | \n    \"MultiPolygon\" |\n    \"GeometryCollection\";\ntype BBox = [number, number, number, number] | [number, number, number, number, number, number];\n\nexport type GeometryObject = Geometry;\n\ninterface GeoJsonObject {\n    type: GeoJsonTypes;\n    bbox?: BBox;\n}\n\ninterface MultiLineString extends GeoJsonObject {\n    type: \"MultiLineString\";\n    coordinates: Position[][];\n}\n\ninterface Point extends GeoJsonObject {\n    type: \"Point\";\n    coordinates: Position;\n}\n```\n\n## Trip Interface\n\n```typescript\ninterface Trip extends Base {\n    id: string;\n    startDate: Date;\n    endDate: Date;\n    publicStatus: ETripView;\n    companyName?: string;\n    shipNumber?: string;\n    geom?: MultiLineString;\n    publisher: User;\n    viewers: User[];\n    startPoint: Location;\n    endPoint: Location;\n    version: number;\n}\n```\n\n## Location Interface\n\n```typescript\ninterface Location extends Base {\n    id: string;\n    point: Point;\n    pointSrid: Point;\n    lat: number;\n    lon: number;\n    type: ELocationType;\n    locationName: string;\n    country?: Country;\n    startTrips?: Trip[];\n    endTrips?: Trip[];\n    version: number;\n}\n```\n\n## Country Interface\n\n```typescript\ninterface Country extends Base {\n    id: string;\n    name: string;\n    code: string;\n}\n```\n\n## User Interface\n\n```typescript\ninterface User extends Base {\n    id: string;\n    role: EUserRole;\n    expiredDate: Date;\n    diamondCoin: number; // default 0\n    goldCoin: number; // default 10\n    username: string;\n    email: string;\n    status: boolean; // default true\n    gender?: EUserGender\n    age?: number;\n    desc?: string;\n    profileImage?: string;\n    trips: Trip[];\n    views: Trip[];\n    posts: Post[];\n    likePosts: Post[];\n    followers: User[];\n    followings: User[];\n    blockLists: User[];\n    followerCount: number;\n    followingCount: number;\n    version: number;\n}\n```",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Chats",
+			"item": [
+				{
+					"name": "Create ChatRoom",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"lib-Chat-test1\",\n    \"type\": \"private\",\n    \"welcomeMessage\": \"靠\",\n    \"requestUserId\": \"735ca6d1-7a2f-45b5-bce7-42706751d12e\",\n    \"responseUserId\": \"9b501158-f4eb-48ba-823e-7d88b80b7127\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/chatrooms",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"chatrooms"
+							]
+						},
+						"description": "## **Description:**\n\n- Create a new trip\n\n### **Parameter in Get Use Info:**\n| Parameter               | Description                                  | Type            | In         |\n| --------                | --------                                     | --------        | --------   |\n| authorization(Required) | JWT Token                                    | string          | Header     |\n| name(Required)          | Chatroom name                                | string          | Body       |\n| type(Required)          | Chatroom type `EChatRoomType`                | enumerate       | Body       |\n| welcomeMessage(Required)| Welcome Message when people enter chatroom   | string          | Body       |\n| requestUserId(Required) | Person who create the chatroom               | string          | Body       |\n| responseUserId(Required)| Person who get invited to the chatroom       | string          | Body       |\n\n\n\n#### **Request interface:**\n```typescript\nenum EChatRoomType {\n  'PUBLIC' = 'public',\n  'PRIVATE' = 'private',\n  'GROUP' = 'group',\n}\n\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface CreateChatrooomDto {\n    name: string;\n    type: EChatRoomType; // default private\n    welcomeMessage: string;\n    requestUserId: string;\n    responseUserId: string;\n}\n\ntype Request = CreateChatrooomDto & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ntype Response<Chatroom>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Create chat message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"我是誰，我在哪9\",\n    \"chatParitcipateId\": \"fb2ea0dd-851a-4f93-92d8-0787af9203f3\",\n    \"requestUserId\": \"735ca6d1-7a2f-45b5-bce7-42706751d12e\",\n    \"responseUserId\": \"9b501158-f4eb-48ba-823e-7d88b80b7127\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/chats",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"chats"
+							]
+						},
+						"description": "## **Description:**\n\n- Create a new trip\n\n### **Parameter in Get Use Info:**\n| Parameter                     | Description                                  | Type            | In         |\n| --------                      | --------                                     | --------        | --------   |\n| authorization(Required)       | JWT Token                                    | string          | Header     |\n| message(Required)             | chat message                                 | string          | Body       |\n| chatParitcipateId(Required)   | relations with chatParitcipate pk            | string          | Body       |\n| requestUserId(Required)       | Person who create the chatroom               | string          | Body       |\n| responseUserId(Required)      | Person who get invited to the chatroom       | string          | Body       |\n\n\n\n\n#### **Request interface:**\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface CreatChatDto {\n    message: string;\n    chatParitcipateId: string;\n    requestUserId: string;\n    responseUserId: string;\n}\n\ntype Request = CreatChatDto & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ntype Response<Chat>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Chat read status <A>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestUserId\": \"735ca6d1-7a2f-45b5-bce7-42706751d12e\",\n    \"readStatus\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/chats/:id/reads",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"chats",
+								":id",
+								"reads"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "42e5f423-0ed0-432a-831b-69c0042b6b23"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Update Chat Read Status (Admin Only, for UI use socket)\n\n### **Parameter in Get Use Info:**\n| Parameter               | Description                                  | Type            | In         |\n| --------                | --------                                     | --------        | --------   |\n| authorization(Required) | JWT Token                                    | string          | Header     |\n| requestUserId(Required) | Person who create the chatroom               | string          | Body       |\n| readStatus(Required)    | Chat Status enumerate                        | Enumerate       | Body       |\n\n\n\n#### **Request interface:**\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface UpdateChatReadStatusDto {\n    requestUserId: string;\n    readStatus: EChatStatus;\n}\n\ntype Request = UpdateChatReadStatusDto & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ntype Response<Chat>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Chat send status <A>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestUserId\": \"735ca6d1-7a2f-45b5-bce7-42706751d12e\",\n    \"sendStatus\": \"finish\"\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/chats/:id/sends",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"chats",
+								":id",
+								"sends"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "42e5f423-0ed0-432a-831b-69c0042b6b23"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Update Chat Send Status (Admin Only, for UI use socket)\n\n### **Parameter in Get Use Info:**\n| Parameter               | Description                                  | Type            | In         |\n| --------                | --------                                     | --------        | --------   |\n| authorization(Required) | JWT Token                                    | string          | Header     |\n| requestUserId(Required) | Person who create the chatroom               | string          | Body       |\n| sendStatus(Required)    | Chat Status enumerate                        | Enumerate       | Body       |\n\n\n\n#### **Request interface:**\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface UpdateChatSendStatusDto {\n    requestUserId: string;\n    sendStatus: EChatSendStatus;\n}\n\ntype Request = UpdateChatSendStatusDto & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ntype Response<Chat>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chat By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/chatrooms/:id",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"chatrooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1d4118de-a928-4f8e-9333-c647ba52793f"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Get a specific post information by Id\n\n### **Parameter in Get Use Info:**\n| Parameter              | Description | Type         | In         |\n| --------               | --------    | --------     | --------   |\n| authorization(Required)| JWT Token   | string       | Header     |\n| id(Required)           | post PK     | string       | Parameter  |\n\n\n#### **Request interface:**\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface ChatBasicDto {\n    id: string;\n}\n\ntype Request = ChatBasicDto & AuthHeader;\n```\n\n#### **Response interface:**\n```typescript\ntype Response<ChatRoom>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Chat Read Status With Socket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "VIEW",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							}
+						],
+						"url": {
+							"raw": "{{ws_protocol}}://{{ws_domain}}:{{ws_port}}/chats?accessToken={{token}}",
+							"protocol": "{{ws_protocol}}",
+							"host": [
+								"{{ws_domain}}"
+							],
+							"port": "{{ws_port}}",
+							"path": [
+								"chats"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Update Chat Read Status With Socket\n\n#### **Request interface:**\n```typescript\ninterface SocketEventData {\n    readStatus: EChatStatus,\n    participateId: string;\n    requestUserId: string;\n    chatId: string;\n}\n\ninterface SocketEvent {\n    type: \"updatereadstatus\",\n    data: SocketEventData\n}\n\ntype Request = SocketEvent;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Chat Send Status With Socket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "VIEW",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							}
+						],
+						"url": {
+							"raw": "{{ws_protocol}}://{{ws_domain}}:{{ws_port}}/chats?accessToken={{token}}",
+							"protocol": "{{ws_protocol}}",
+							"host": [
+								"{{ws_domain}}"
+							],
+							"port": "{{ws_port}}",
+							"path": [
+								"chats"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Update Chat Send Status With Socket\n\n#### **Request interface:**\n```typescript\ninterface SocketEventData {\n    sendStatus: EChatSendStatus,\n    participateId: string;\n    requestUserId: string;\n    chatId: string;\n}\n\ninterface SocketEvent {\n    type: \"updatesendstatus\",\n    data: SocketEventData\n}\n\ntype Request = SocketEvent;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Receive New Chat Room Event with Socket",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "VIEW",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							}
+						],
+						"url": {
+							"raw": "{{ws_protocol}}://{{ws_domain}}:{{ws_port}}/chats?accessToken={{token}}",
+							"protocol": "{{ws_protocol}}",
+							"host": [
+								"{{ws_domain}}"
+							],
+							"port": "{{ws_port}}",
+							"path": [
+								"chats"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Receive New Chat Room Event with Socket\n\n#### **Response interface:**\n```typescript\ninterface SocketEventResponse {\n    type: EChatRoomSocketEvent.CREATECHATROOM;\n    data: ChatRoom;\n}\n\ntype Response<SocketEventResponse>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Receive New Chat Message Event with Socket",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "VIEW",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							}
+						],
+						"url": {
+							"raw": "{{ws_protocol}}://{{ws_domain}}:{{ws_port}}/chats?accessToken={{token}}",
+							"protocol": "{{ws_protocol}}",
+							"host": [
+								"{{ws_domain}}"
+							],
+							"port": "{{ws_port}}",
+							"path": [
+								"chats"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Receive New Chat Room Event with Socket\n\n#### **Response interface:**\n```typescript\ninterface SocketEventResponse {\n    type: EChatRoomSocketEvent.NEWCHATMESSAGE;\n    data: Chat;\n}\n\ntype Response<SocketEventResponse>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Receive Chat Send Status Update Event with Socket",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "VIEW",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							}
+						],
+						"url": {
+							"raw": "{{ws_protocol}}://{{ws_domain}}:{{ws_port}}/chats?accessToken={{token}}",
+							"protocol": "{{ws_protocol}}",
+							"host": [
+								"{{ws_domain}}"
+							],
+							"port": "{{ws_port}}",
+							"path": [
+								"chats"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Receive Chat Send Status Update Event with Socket\n\n#### **Response interface:**\n```typescript\ninterface SocketEventResponse {\n    type: EChatRoomSocketEvent.UPDATESENDSTATUSMSG;\n    data: ChatRoom;\n}\n\ntype Response<SocketEventResponse>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Receive Chat Read Status Update Event With Socket",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "VIEW",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							}
+						],
+						"url": {
+							"raw": "{{ws_protocol}}://{{ws_domain}}:{{ws_port}}/chats?accessToken={{token}}",
+							"protocol": "{{ws_protocol}}",
+							"host": [
+								"{{ws_domain}}"
+							],
+							"port": "{{ws_port}}",
+							"path": [
+								"chats"
+							],
+							"query": [
+								{
+									"key": "accessToken",
+									"value": "{{token}}"
+								}
+							]
+						},
+						"description": "## **Description:**\n\n- Receive Chat Read Status Update Event With Socket\n\n#### **Response interface:**\n```typescript\ninterface SocketEventResponse {\n    type: EChatRoomSocketEvent.UPDATEREADSTATUSMSG;\n    data: ChatRoom;\n}\n\ntype Response<SocketEventResponse>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all user chats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/chatrooms/paging",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"chatrooms",
+								"paging"
+							]
+						},
+						"description": "## **Description:**\n\n- Get a specific post information by Id\n\n### **Parameter in Get Pages Info:**\n| Parameter              | Description                                  | Type              | In         |\n| --------               | --------                                     | --------          | --------   |\n| authorization(Required)| JWT Token                                    | string            | Header     |\n| take(Optional)         | Page size in a scroll                        | number            | Query      |\n| skip(Optional)         | Page number for scroll                       | number            | Query      |\n| keyword(Optional)      | Keyword Search (This MVP doesn't support)    | string            | Query      |\n| sort(Optional)         | sort                                         | 'ASC' or 'DESC'   | Query      |\n\n#### **Request interface:**\n```typescript\ninterface AuthHeader {\n    authorization: string;\n}\n\ninterface IPage {\n    take?: number;\n    skip?: number;\n}\n\ninterface ISearch extends IPage {\n    keyword?: string;\n    sort?: TSort;\n    [futureKey: string]: any;\n}\n\ntype Request = ISearch & AuthHeader;\n```\n\n#### Response\n```typescript\ninterface PagingResponse {\n    chatrooms: ChatRoom[];\n    take: number;\n    skip: number;\n    count: number;\n}\n\ntype Response<PagingResponse>;\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chat Test <A>",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "service-name",
+								"type": "text",
+								"value": "one-piece-chat"
+							}
+						],
+						"url": {
+							"raw": "{{protocol}}://{{domain}}:{{port}}/v1/api/chats",
+							"protocol": "{{protocol}}",
+							"host": [
+								"{{domain}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"v1",
+								"api",
+								"chats"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "## Base Interface\n\n```typescript\ninterface Base {\n    createdAt: Date;\n    updatedAt: Date;\n}\n```\n\n## Enumerate\n\n```typescript\nenum EChatRoomSocketEvent {\n    // chatroom settings\n    'CREATECHATROOM' = 'createchatroom',\n    'UPDATECHATROOM' = 'updatechatroom',\n    'DELETECHATROOM' = 'deletechatroom',\n    // participate\n    'UPDATEPARTICIPATE' = 'updateparticipate',\n    'DELETEPARTICIPATE' = 'deleteparticipate',\n    // message\n    'NEWCHATMESSAGE' = 'newchatmessage',\n    'UPDATESENDSTATUSMSG' = 'updatesendstatusmsg',\n    'UPDATEREADSTATUSMSG' = 'updatereadstatusmsg',\n}\n\nenum EChatRoomType {\n    'PUBLIC' = 'public',\n    'PRIVATE' = 'private',\n    'GROUP' = 'group',\n}\n\nenum EChatSendStatus {\n    'FAIL' = 'fail',\n    'SENDING' = 'sending',\n    'FINISH' = 'finish',\n}\n\nenum EChatStatus {\n    'READ' = 'read',\n    'UNREAD' = 'unread',\n}\n\nenum EUserRole {\n    'TRIAL' = 'trial',\n    'USER' = 'user',\n    'VIP1' = 'vip1',\n    'VIP2' = 'vip2',\n    'ADMIN' = 'admin',\n}\n\nenum EUserGender {\n    'MALE' = 'male',\n    'FEMALE' = 'female',\n}\n```\n\n## ChatRoom Interface\n\n```typescript\ninterface ChatRoom extends Base {\n    id: string;\n    name: string;\n    type: EChatRoomType;\n    chatParticipate: ChatParticipate;\n    version: number;\n}\n```\n\n## chatParticipate Interface\n\n```typescript\ninterface ChatParticipate extends Base {\n    id: string;\n    chatRoom: ChatRoom;\n    chats: Chat[];\n    users: User[];\n    version: number;\n}\n```\n\n## Chat Interface\n\n```typescript\ninterface Chat extends Base {\n    id: string;\n    message: string;\n    sendStatus: EChatSendStatus;\n    readStatus: EChatStatus;\n    chatParticipate: ChatParticipate;\n    version: number;\n}\n```\n\n## User Interface\n\n```typescript\ninterface User extends Base {\n    id: string;\n    role: EUserRole;\n    expiredDate: Date;\n    diamondCoin: number; // default 0\n    goldCoin: number; // default 10\n    username: string;\n    email: string;\n    status: boolean; // default true\n    gender?: EUserGender\n    age?: number;\n    desc?: string;\n    profileImage?: string;\n    chatParticipates: ChatParticipates[];\n    followers: User[];\n    followings: User[];\n    blockLists: User[];\n    followerCount: number;\n    followingCount: number;\n    version: number;\n}\n```",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
